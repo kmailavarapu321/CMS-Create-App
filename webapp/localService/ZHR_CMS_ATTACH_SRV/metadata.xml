@@ -1,0 +1,43 @@
+<edmx:Edmx xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+	xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData" Version="1.0">
+	<edmx:DataServices m:DataServiceVersion="2.0">
+		<Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" Namespace="ZHR_CMS_ATTACH_SRV" xml:lang="en" sap:schema-version="1">
+			<EntityType Name="Attachments" sap:content-version="1">
+				<Key><PropertyRef Name="Mandt"/><PropertyRef Name="Docno"/></Key><Property Name="Mandt" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="Client" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Posid" Type="Edm.String" Nullable="false" MaxLength="8" sap:unicode="false" sap:label="Organization Pos ID"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Docno" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Attachment Document"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Licid" Type="Edm.String" Nullable="false" MaxLength="15" sap:unicode="false" sap:label="License ID" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Refdoc" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Reference Doc No of"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Refdocty" Type="Edm.String" Nullable="false" MaxLength="5" sap:unicode="false" sap:label="Attachment Ref Doc t"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Filename" Type="Edm.String" Nullable="false" MaxLength="200" sap:unicode="false" sap:label="Name 1" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Text" Type="Edm.String" Nullable="false" MaxLength="50" sap:unicode="false" sap:label="Name" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Filetype" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="3-Byte field"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Ernam" Type="Edm.String" Nullable="false" MaxLength="241" sap:unicode="false" sap:label="User Name" sap:creatable="false"
+					sap:updatable="false" sap:sortable="false" sap:filterable="false"/><Property Name="Erdate" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="Date" sap:creatable="false" sap:updatable="false"
+					sap:sortable="false" sap:filterable="false"/><Property Name="Ertime" Type="Edm.Time" Precision="0" sap:unicode="false" sap:label="Time" sap:creatable="false" sap:updatable="false"
+					sap:sortable="false" sap:filterable="false"/><Property Name="Lictext" Type="Edm.String" Nullable="false" MaxLength="150" sap:unicode="false" sap:label="License Text"
+					sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/></EntityType>
+			<EntityType Name="File" m:HasStream="true" sap:content-version="1">
+				<Key><PropertyRef Name="Docno"/></Key><Property Name="Docno" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:creatable="false" sap:updatable="false"
+					sap:sortable="false" sap:filterable="false"/><Property Name="Mimetype" Type="Edm.String" Nullable="false" sap:unicode="false" sap:creatable="false" sap:updatable="false"
+					sap:sortable="false" sap:filterable="false"/></EntityType>
+			<EntityType Name="TempNo" sap:content-version="1">
+				<Key><PropertyRef Name="TempId"/></Key><Property Name="TempId" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:creatable="false" sap:updatable="false"
+					sap:sortable="false" sap:filterable="false"/><Property Name="Rdocno" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:creatable="false" sap:updatable="false"
+					sap:sortable="false" sap:filterable="false"/><Property Name="Rdocty" Type="Edm.String" Nullable="false" MaxLength="15" sap:unicode="false" sap:creatable="false" sap:updatable="false"
+					sap:sortable="false" sap:filterable="false"/></EntityType>
+			<EntityType Name="UpdateRefDoc" sap:content-version="1">
+				<Key><PropertyRef Name="RefDoc"/></Key><Property Name="RefDoc" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:creatable="false" sap:updatable="false"
+					sap:sortable="false" sap:filterable="false"/><NavigationProperty Name="Items" Relationship="ZHR_CMS_ATTACH_SRV.UpdateRefDoc_Attachments" FromRole="FromRole_UpdateRefDoc_Attachments"
+					ToRole="ToRole_UpdateRefDoc_Attachments"/></EntityType>
+			<Association Name="UpdateRefDoc_Attachments" sap:content-version="1"><End Type="ZHR_CMS_ATTACH_SRV.UpdateRefDoc" Multiplicity="*" Role="FromRole_UpdateRefDoc_Attachments"/><End Type="ZHR_CMS_ATTACH_SRV.Attachments" Multiplicity="*" Role="ToRole_UpdateRefDoc_Attachments"/></Association>
+			<EntityContainer Name="ZHR_CMS_ATTACH_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx"><EntitySet Name="AttachmentsSet" EntityType="ZHR_CMS_ATTACH_SRV.Attachments" sap:creatable="false" sap:updatable="false"
+				sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/><EntitySet Name="FileSet" EntityType="ZHR_CMS_ATTACH_SRV.File" sap:creatable="false" sap:updatable="false" sap:deletable="false"
+				sap:pageable="false" sap:addressable="false" sap:content-version="1"/><EntitySet Name="TempNoSet" EntityType="ZHR_CMS_ATTACH_SRV.TempNo" sap:creatable="false" sap:updatable="false" sap:deletable="false"
+				sap:pageable="false" sap:addressable="false" sap:content-version="1"/><EntitySet Name="UpdateRefDocSet" EntityType="ZHR_CMS_ATTACH_SRV.UpdateRefDoc" sap:creatable="false" sap:updatable="false"
+				sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+				<AssociationSet Name="UpdateRefDoc_Attachments_AssocSet" Association="ZHR_CMS_ATTACH_SRV.UpdateRefDoc_Attachments" sap:creatable="false"
+					sap:updatable="false" sap:deletable="false" sap:content-version="1"><End EntitySet="UpdateRefDocSet" Role="FromRole_UpdateRefDoc_Attachments"/><End EntitySet="AttachmentsSet" Role="ToRole_UpdateRefDoc_Attachments"/></AssociationSet>
+			</EntityContainer><atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="self" href="./sap/ZHR_CMS_ATTACH_SRV/$metadata"/><atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="latest-version" href="./sap/ZHR_CMS_ATTACH_SRV/$metadata"/></Schema>
+	</edmx:DataServices>
+</edmx:Edmx>

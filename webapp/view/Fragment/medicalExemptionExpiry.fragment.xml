@@ -1,0 +1,8 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<Popover
+		id="myPopovermedicalExps" title="Information" titleAlignment= "Center"  contentWidth="14%"   class="popovertitle"  placement="Top">
+		<Text class="sapUiTinyMargin" text= "Only Applicable if Applying for a Medical Exemption"></Text>
+	</Popover>
+</core:FragmentDefinition>

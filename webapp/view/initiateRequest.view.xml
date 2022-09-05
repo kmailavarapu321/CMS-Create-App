@@ -1,0 +1,1106 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns:f="sap.ui.layout.form" xmlns:layout="sap.ui.layout" xmlns:l="sap.ui.layout" xmlns="sap.m"
+	xmlns:core="sap.ui.core" xmlns:m="sap.m" xmlns:blockcolor="sap.uxap.sample.SharedBlocks" xmlns:uxap="sap.uxap" xmlns:u="sap.ui.unified"
+	controllerName="com.fmgl.ZHR_CMS_VND_REQ.controller.initiateRequest" xmlns:html="http://www.w3.org/1999/xhtml">
+	<App>
+		<pages>
+			<Page id="idInitiate" title="Initiate Contractor Request" titleLevel="H1" showHeader="false" enableScrolling="true" titleAlignment="Center"
+				class="primary1 sapUiSizeCompact" showNavButton="true" navButtonPress="onNavigate">
+				<!--<ScrollContainer horizontal="true" vertical="false">-->
+				<Bar class="primary1 test sapUiSizeCompact" id="idBar">
+					<contentLeft>
+						<core:Icon src="sap-icon://nav-back" class="Primary2 sapUiSmallMarginBegin" press="onNavigate"></core:Icon>
+						<Image src="Images/FMGMASTERBRAND.jpg" id="Fmglogo" visible="false"></Image>
+					</contentLeft>
+					<contentMiddle>
+						<Text text="Initiate Contractor Request"></Text>
+					</contentMiddle>
+					<contentRight></contentRight>
+				</Bar>
+				<content>
+					<uxap:ObjectPageLayout id="ObjectPageLayout" alwaysShowContentHeader="true">
+						<uxap:headerContent class="negativeMargin">
+							<l:VerticalLayout width="95%" class="negativeMargin">
+								<l:content>
+									<m:FlexBox justifyContent="SpaceBetween" alignItems="Start" fitContainer="true">
+										<m:items>
+											<layout:VerticalLayout width="100%" class="sapUiMediumMarginTop">
+												<m:ObjectStatus text="Request For Contractor Mobilisation" class="titleFont"/>
+												<m:ObjectStatus text="Fortescue Metals Group" class="fortescuemgroup"/>
+												<m:ObjectStatus class="txt-color1 titleweight" id="idvendor" title="Vendor" text="{InitialModel>/CrUnam}" state="Warning"/>
+											</layout:VerticalLayout>
+											<layout:VerticalLayout class="sapUiMediumMarginTop">
+												<m:VBox>
+													<m:ObjectStatus class="lablemargin titleweight sapUiLargeMarginBegin" id="Req_Type" title="Request Type" text="{initiateModel>/TextData}"/>
+													<m:ObjectStatus class="lablemargin1 titleweight sapUiLargeMarginBegin" id="contractorName" title="Contractor Name"
+														text="{tableModel>/Fname} {tableModel>/Mname} {tableModel>/Lname}"/>
+													<m:ObjectStatus class="lablemargin1 titleweight sapUiLargeMarginBegin" id="SapNo" title="Fortescue ID"
+														text="{= parseFloat(${tableModel>/Personid_ext}) } "/>
+												</m:VBox>
+											</layout:VerticalLayout>
+										</m:items>
+									</m:FlexBox>
+								</l:content>
+							</l:VerticalLayout>
+							<!--<m:VBox width="100%" height="58%" class ="sapUiTinyMarginTop">-->
+							<!--	<m:Label text="Comments by Fortescue Mobilisation Team:" id="header_Comments"-->
+							<!--		visible="{path:'re_mdl>/NoteVisible', formatter: '.formatter.NoteVisible'}" class="Primary"/>-->
+							<!--	<m:TextArea id="text_rej" growing="true" value="{re_mdl>/Note}" growingMaxLines="10" height="25%" width="70%" editable="false"-->
+							<!--		visible="{path:'re_mdl>/NoteVisible', formatter: '.formatter.NoteVisible'}"/>-->
+							<!--</m:VBox>-->
+						</uxap:headerContent>
+						<uxap:sections>
+							<uxap:ObjectPageSection class="pad1 blue" id="Reqsection" title="Request Details">
+								<uxap:subSections>
+									<uxap:ObjectPageSubSection>
+										<uxap:blocks>
+											<f:SimpleForm id="SimpleFormChange354" editable="true" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="4"
+												labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1"
+												singleContainerFullSize="true">
+												<f:content>
+													<Label required="true" text="Request Type" design="Bold" class="cgcolor"/>
+													<!--<Select items="{ValueModle>/RosterType}">-->
+													<!--		<core:Item key="{ValueModle>text}" text="{ValueModle>text}"/>-->
+													<!--</Select>-->
+													<!--<ComboBox valueState="None" change="request_Typechange" id="req_Type"  items="{Request_model>/RequestType}" placeholder="Please select Request Type">-->
+													<!--	<core:Item key="{Request_model>REQ_TYPE}" text="{Request_model>REQ_TYPE_TEXT}"/>-->
+													<!--	<layoutData>-->
+													<!--		<l:GridData span="XL3 L3 M5 S12"/>-->
+													<!--	</layoutData>-->
+													<!--</ComboBox>-->
+													<ComboBox valueState="None" change="requestTypechange" editable="false" id="req_Type" items="{/ReqTypeSet}"
+														placeholder="Please select Request Type">
+														<core:Item key="{REQ_TYPE}" text="{REQ_TYPE_TEXT}"/>
+														<layoutData>
+															<l:GridData span="XL3 L3 M5 S12"/>
+														</layoutData>
+													</ComboBox>
+													<!--<Label text=""/>-->
+													<!--<Label text=""/>-->
+													<!--<Label text=""/>-->
+													<!--<Label text=""/>-->
+													<Label text="Description/Comments" design="Bold" class="cgcolor"/>
+													<TextArea id="req_Desccomments" value="" change="descCommentsChange" growing="true" growingMaxLines="7" placeholder="Please enter Comments"
+														width="100%"/>
+												</f:content>
+											</f:SimpleForm>
+										</uxap:blocks>
+									</uxap:ObjectPageSubSection>
+								</uxap:subSections>
+							</uxap:ObjectPageSection>
+							<uxap:ObjectPageSection class="pad1 blue" id="idpif" title="Personal Information">
+								<uxap:subSections>
+									<uxap:ObjectPageSubSection>
+										<uxap:blocks>
+											<f:SimpleForm id="formInfo" editable="true" layout="ColumnLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12"
+												adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1"
+												singleContainerFullSize="true">
+												<f:content>
+													<Label text="Title" design="Bold" class="cgcolor" required="true"/>
+													<!--<Select items="{ValueModle>/RosterType}">-->
+													<!--		<core:Item key="{ValueModle>text}" text="{ValueModle>text}"/>-->
+													<!--</Select>-->
+													<ComboBox valueState="None" width="50%" change="Title_Change" id="pers_Title" items="{/TitleSet}" placeholder="Please select Title">
+														<core:Item key="{TITLE}" text="{TITLE_TEXT}"/>
+														<!--<layoutData>-->
+														<!--	<l:GridData span="XL3 L3 M5 S12"/>-->
+														<!--</layoutData>-->
+													</ComboBox>
+													<Label required="true" text="First Name" design="Bold" class="cgcolor"/>
+													<Input width="50%" id="pers_Fname" change="firstNameChange" placeholder="Please enter First Name "/>
+													<Label text=""/>
+													<Label text="Middle Name" design="Bold" class="cgcolor"/>
+													<Input width="50%" id="pers_Mname" change="middleNameChange" placeholder="Please enter Middle Name "/>
+													<Label required="true" text="Last Name" design="Bold" class="cgcolor"/>
+													<Input width="50%" id="pers_Lname" change="lastNameChange" placeholder="Please enter Last Name "/>
+													<Label required="true" text="Date of Birth" design="Bold" class="cgcolor"/>
+													<DatePicker displayFormat="dd.MM.yyyy" valueFormat="yyyy-MM-dd" id="pers_DOB" width="50%" change="DOBChnage"
+														placeholder="Please enter Date of Birth - dd.mm.yyyy " value=""/>
+													<Label text="Fortescue ID" design="Bold" class="cgcolor"/>
+													<Input width="50%" id="pers_SAPnum" type="Number" change="SAPNumChange" placeholder="Please enter Fortescue ID"/>
+													<Label id="GenderLId" required="true" text="Gender" design="Bold" class="cgcolor"/>
+													<ComboBox valueState="None" change="GenChange" id="pers_gender" items="{/GenderSet}" placeholder="Please select Gender" width="50%">
+														<core:Item key="{GENDER}" text="{GENDER_TEXT}"/>
+														<!--<layoutData>-->
+														<!--	<l:GridData span="XL3 L3 M5 S12"/>-->
+														<!--</layoutData>-->
+													</ComboBox>
+													<Label text="Preferred Name" design="Bold" class="cgcolor"/>
+													<Input width="50%" id="pers_Prename" change="preferNameChange" placeholder="Please enter Preferred Name "/>
+													<Label required="true" id="NationLid" text="Nationality" design="Bold" class="cgcolor"/>
+													<ComboBox valueState="None" width="50%" change="NatChange" id="pers_Nationality" items="{/NationalitySet}"
+														placeholder="Please select Nationality">
+														<core:Item key="{NATIO}" text="{NATIO_TEXT}"/>
+													</ComboBox>
+													<Label text="Aboriginal or Torres Strait Islander" design="Bold" class="cgcolor"/>
+													<ComboBox valueState="None" change="islander_Change" id="pers_islander" items="{/AboriginalSet}" width="50%"
+														placeholder="Please select Aboriginal or Torres Strait Islander">
+														<core:Item key="{ABORTS}" text="{ABORTS_TEXT}"/>
+													</ComboBox>
+													<Label text="Native Title" design="Bold" class="cgcolor"/>
+													<ComboBox valueState="None" width="50%" change="NativeTitle_Change" id="pers_Native" items="{/NativeTitleSet}"
+														placeholder="Please select Native Title ">
+														<core:Item key="{NTITLE}" text="{NTITLE_TEXT}"/>
+													</ComboBox>
+												</f:content>
+											</f:SimpleForm>
+										</uxap:blocks>
+									</uxap:ObjectPageSubSection>
+								</uxap:subSections>
+							</uxap:ObjectPageSection>
+							<uxap:ObjectPageSection class="pad1 blue" id="idCINF" title="Contact Information">
+								<uxap:subSections>
+									<uxap:ObjectPageSubSection>
+										<uxap:blocks>
+											<f:SimpleForm id="Contact_info" editable="true" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12"
+												adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1"
+												singleContainerFullSize="true">
+												<f:content>
+													<Label required="true" id="PersEmailLid" text="Personal E-mail Address" design="Bold" class="cgcolor"/>
+													<Input id="conmail" width="50%" change="mailchange" placeholder="Please enter E-mail Address"/>
+													<Label required="true" id="PersMobnoLid" text=" Mobile Number" design="Bold" class="cgcolor"/>
+													<Input id="conmobile" width="50%" change="mobilechange" placeholder="Please enter Mobile Number "/>
+												</f:content>
+											</f:SimpleForm>
+										</uxap:blocks>
+									</uxap:ObjectPageSubSection>
+								</uxap:subSections>
+							</uxap:ObjectPageSection>
+							<uxap:ObjectPageSection class="pad1 blue" id="idECD" title="Emergency Contact Details">
+								<uxap:subSections>
+									<uxap:ObjectPageSubSection>
+										<uxap:blocks>
+											<f:SimpleForm id="Emergency" editable="true" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12"
+												adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1"
+												singleContainerFullSize="true">
+												<f:content>
+													<Label text="Relationship" design="Bold" class="cgcolor"/>
+													<ComboBox valueState="None" width="50%" change="Relationship_change" id="emergency_Rel" items="{/RelationshipSet}"
+														placeholder="Please select Relationship">
+														<core:Item key="{ERELATION}" text="{ERELATION_TEXT}"/>
+													</ComboBox>
+													<Label text="Name" design="Bold" class="cgcolor"/>
+													<Input width="50%" id="emergency_Name" change="emergencyNamechange" placeholder="Please enter Name"/>
+													<Label text="Phone Number" design="Bold" class="cgcolor"/>
+													<Input width="50%" liveChange="mob__chnage" id="emergency_Phnumber" change="mobileChangeEM" placeholder="Please enter Phone Number"/>
+													<!--<Button icon="sap-icon://add" press="onadd" width="20%"/>-->
+												</f:content>
+											</f:SimpleForm>
+										</uxap:blocks>
+									</uxap:ObjectPageSubSection>
+								</uxap:subSections>
+							</uxap:ObjectPageSection>
+							<uxap:ObjectPageSection class="pad1 blue" id="idASIF" title="Assignment Information">
+								<uxap:subSections>
+									<uxap:ObjectPageSubSection>
+										<uxap:blocks>
+											<f:SimpleForm id="Assignment" editable="true" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12"
+												adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1"
+												singleContainerFullSize="true">
+												<f:content>
+													<Label id="idLabelStartDate" required="true" text="Start Date" design="Bold" class="cgcolor"/>
+													<DatePicker editable="false" displayFormat="dd.MM.yyyy" valueFormat="yyyy-MM-dd" id="assign_StartDate" width="50%" change="startDateChange"
+														placeholder="Please pick Start Date - dd.mm.yyyy"/>
+													<Label id="idLabelTravelDate" required="true" text="Travel Date" design="Bold" class="cgcolor"/>
+													<DatePicker displayFormat="dd.MM.yyyy" valueFormat="yyyy-MM-dd" id="assign_TravelDate" width="50%" change="travelDateChange"
+														minDate="{DateModel>/CDate}" placeholder="Please pick Travel Date - dd.mm.yyyy"/>
+													<Label required="true" text="End Date" design="Bold" class="cgcolor"/>
+													<DatePicker displayFormat="dd.MM.yyyy" valueFormat="yyyy-MM-dd" id="assign_EstDate" width="50%"
+														placeholder="Please pick Est. End Date - dd.mm.yyyy " minDate="{DateModel>/EDate}" change="endDateChange"/>
+													<!--<Input width="50%" id="assign_EstDate" placeholder="Please Enter Estimated End Date"/>-->
+													<Label required="true" text="Position Number" design="Bold" class="cgcolor"/>
+													<Input width="50%" id="assign_Pos" maxLength='8' type="Number" change="PositionChange" placeholder="Please enter Position Number"/>
+													<Label text="Position Title" design="Bold" class="cgcolor"/>
+													<Input width="50%" editable="false" id="assign_Name"/>
+													<Label text="Leader Name" design="Bold" class="cgcolor"/>
+													<Input width="50%" editable="false" id="assign_Leader"/>
+													<Label text="Location" design="Bold" class="cgcolor"/>
+													<Input width="50%" id="assign_loc" editable="false"/>
+													<Label required="true" id="mantrolId" text="Mandatory Role Qualifications / Licenses" design="Bold" class="cgcolor"/>
+													<ComboBox valueState="None" width="50%" change="Mant_Change" id="Mant_subgroup" placeholder="Please select Mandatory Role Qualifications"
+														items="{/JobidSet}">
+														<core:Item key="{Jobid}" text="{Text}"/>
+													</ComboBox>
+													<Label required="true" id="projecttype" text="Project Type" design="Bold" class="cgcolor"/>
+													<ComboBox valueState="None" editable="false" width="50%" change="ProjectType_Change" id="Project" placeholder="Please select Project Type"
+														items="{/ProjTypeHelpSet}">
+														<core:Item key="{Code}" text="{Text}"/>
+													</ComboBox>
+													<Label required="true" id="EmpSubgrpId" text="Employee Subgroup" design="Bold" class="cgcolor"/>
+													<ComboBox valueState="None" width="50%" change="empsubgrp_Change" id="Emp_subgroup" items="{/EmpSubgroupSet}"
+														placeholder="Please select Employee Subgroup">
+														<core:Item key="{ESUBGRP}" text="{ESUBGRP_TEXT}"/>
+														<!--<layoutData>-->
+														<!--	<l:GridData span="XL3 L3 M5 S12"/>-->
+														<!--</layoutData>-->
+													</ComboBox>
+													<Label required="true" text="Work Schedule" design="Bold" class="cgcolor"/>
+													<Input width="50%" id="assign_Worksch" placeholder="Please enter Work Schedule" editable="false"/>
+													<Label text="Vendor" design="Bold" class="cgcolor"/>
+													<Input width="50%" id="assign_Vendor" editable="false"/>
+												</f:content>
+											</f:SimpleForm>
+										</uxap:blocks>
+									</uxap:ObjectPageSubSection>
+								</uxap:subSections>
+							</uxap:ObjectPageSection>
+							<uxap:ObjectPageSection class="pad1 blue" id="idDA1" showTitle="false" visible="false">
+								<uxap:subSections >
+									<uxap:ObjectPageSubSection >
+										<uxap:blocks>
+											<f:SimpleForm id="empAuthorized1" editable="true" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="4"
+												labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1"
+												singleContainerFullSize="true">
+												<f:toolbar>
+													<Toolbar id="TB1" visible="false">
+														<Title id="Title1" text="Mandatory Documents" visible="false"/>
+														<!--<ToolbarSpacer />-->
+														<!--	<Button text="Upload Files" width = "10%"-->
+														<!--type  = "Emphasized" press = "uploadPress"/>-->
+													</Toolbar>
+												</f:toolbar>
+												<f:content></f:content>
+											</f:SimpleForm>
+										</uxap:blocks>
+									</uxap:ObjectPageSubSection>
+								</uxap:subSections>
+							</uxap:ObjectPageSection>
+							<uxap:ObjectPageSection class="pad1 blue sapUiNoMarginBottom" id="idDA" title="Declaration Agreement">
+								<uxap:subSections>
+									<uxap:ObjectPageSubSection id="empauth1" title = "Employers Authorised Representative" class="display1">
+										<uxap:blocks >
+											<Panel class="sapUiNoMarginBottom" >
+												<headerToolbar>
+													<Toolbar>
+														<Title level="H2" class="sapUiNoMarginBegin" text="Employers Authorised Representative"/>
+													</Toolbar>
+												</headerToolbar>
+												<Text id="idemptext1"
+													text="The following declaration must be electronically signed by the Contracting Company’s (“Employer”) authorised representative in order to mobilise any individual to perform work on a Fortescue site."></Text>
+												<Text id="idemptext2" text="All criteria must be fulfilled prior to mobilisation."></Text>
+												<Text id="idemptext3"
+													text="Fortescue’s representative/s retains the right to audit the Contracting Company’s compliance to these mandatory requirements, at any time."></Text>
+												<Text id="idemptext4" text="Note: A Fitness for Work outcome that is Unsuitable Health Risk is not to be mobilised"></Text>
+												<f:SimpleForm title="" id="empAuthorized" editable="true" layout="ResponsiveGridLayout" labelSpanXL="4" labelSpanL="4" labelSpanM="4"
+													labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1"
+													singleContainerFullSize="true">
+													<f:content>
+														<!--	<Label text="Hello" visible="false">-->
+														<!--	</Label>-->
+														<!--<Text text="All criteria must be fulfilled prior to mobilisation.">-->
+														<!--	<layoutData>-->
+														<!--		<l:GridData span="XL1 L1 M1 S12"/>-->
+														<!--	</layoutData>-->
+														<!--</Text>-->
+														<!--	<Label text="Hello" visible="false"></Label>-->
+														<!--<Text text="Fortescue’s representative/s retains the right to audit the Contracting Company’s compliance to these mandatory requirements, at any time."></Text>-->
+														<!--	<Label text="Hello" visible="false"></Label>-->
+														<!--<Text text="Note: A Fitness for Work outcome that is Unsuitable Health Risk is not to be mobilised"></Text>-->
+														<Label required="true" text="Name" design="Bold" class="cgcolor"/>
+														<Input width="50%" id="EmpAuth_name" change="empNameChange" placeholder="Please enter Name "/>
+														<Label required="true" text="Position Title" design="Bold" class="cgcolor"/>
+														<Input width="50%" id="EmpAuth_pos" change="empPositionchange" placeholder="Please enter Positon "/>
+													</f:content>
+												</f:SimpleForm>
+											</Panel>
+										</uxap:blocks>
+									</uxap:ObjectPageSubSection>
+					<uxap:ObjectPageSubSection id="IDMA" title="Medical Assessment Requested" class="display1 PanelOverflow">
+										<uxap:blocks>
+											<VBox>
+													<Panel class="sapUiNoMarginBottom" >
+												<headerToolbar>
+													<Toolbar>
+														<Title level="H2" class="sapUiNoMarginBegin" text="Medical Assessment Requested"/>
+													</Toolbar>
+												</headerToolbar>
+												
+												<f:SimpleForm  id="Med_Agreement" editable="true" layout="ResponsiveGridLayout" labelSpanXL="4"
+													labelSpanL="4" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0"
+													columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="true" class="sapUiSmallMarginBegin">
+													<f:content>
+														<Label required="true" text="Medical Completed" design="Bold" class="cgcolor"/>
+														<ComboBox valueState="None" width="50%" change="medicalChange" id="medicalComp" items="{/MedicalsSet}"
+															placeholder="Please select Medical Completed">
+															<items>
+																<core:Item key="{MED_COMP}" text="{MED_COMP_TEXT}"/>
+															</items>
+														</ComboBox>
+														<Label text="data" visible="false"/>
+														<Input id="idmedinput" width="50%" visible="false" change="medicalInputchange"></Input>
+														<Label required="true" text="Date Completed" design="Bold" class="cgcolor"/>
+														<DatePicker displayFormat="dd.MM.yyyy" valueFormat="yyyy-MM-dd" id="dateComp" width="50%" change="completedChnage"
+															placeholder="Please pick Date Completed"/>
+														<Label required="true" text="AOD test completed within 28 days of mobilisation" design="Bold" class="cgcolor"/>
+														<ComboBox valueState="None" id="AODTEST" change="AOD_Change" width="50%" items="{AODTestmodel>/AODDATA}"
+															placeholder="Please select AOD test Completed">
+															<items>
+																<core:Item key="{AODTestmodel>Code}" text="{AODTestmodel>Text}"/>
+															</items>
+														</ComboBox>
+														<Label required="true" text="Fitness for work risk level from medical" design="Bold" class="cgcolor"/>
+														<ComboBox valueState="None" width="50%" id="medicalfitness" change="fitness_Change" items="{/RiskTypeHelpSet}"
+															placeholder="Please select Fitness">
+															<items>
+																<core:Item key="{Code}" text="{Text}"/>
+															</items>
+														</ComboBox>
+														<Label required="true" text="A Health management plan is in place for any Higher Health Risk Medical" design="Bold" class="cgcolor"/>
+														
+														<ComboBox valueState="None" width="50%" id="healthmanagement" change="healthmanagenet_Change" items="{healthPlanmodel>/health}"
+															placeholder="Please select Health management plan">
+															<items>
+																<core:Item key="{healthPlanmodel>Code}" text="{healthPlanmodel>Text}"/>
+															</items>
+														</ComboBox>
+													</f:content>
+												</f:SimpleForm>
+												<VBox id="idImage">
+													<Label class="sapUiTinyMarginBegin sapUiTinyMarginTop cgcolor" text="FMG Medical Assessment Types" textAlign="Begin" design="Bold"
+														width="100%"/>
+													<Image class="sapUiTinyMarginBegin sapUiTinyMarginTop" src="/sap/bc/ui5_ui5/sap/zhr_cms_vnd_req/Images/Medical_Assesment5.png"
+														decorative="false" width="300px">
+														<detailBox>
+															<LightBox>
+																<LightBoxItem imageSrc="/sap/bc/ui5_ui5/sap/zhr_cms_vnd_req/Images/Medical_Assesment5.png" alt="Beamer" title="FMG Medical Assessment Types"
+																	subtitle=""/>
+															</LightBox>
+														</detailBox>
+														<layoutData>
+															<FlexItemData growFactor="1"/>
+														</layoutData>
+													</Image>
+												</VBox>
+												</Panel>
+											</VBox>
+										</uxap:blocks>
+									</uxap:ObjectPageSubSection>
+						<uxap:ObjectPageSubSection id="idUploadcollection" title="Additional Attachments" class="display1" >
+										<uxap:blocks>
+											<UploadCollection uploadUrl="/sap/opu/odata/sap/ZHR_CMS_ATTACH_SRV/FileSet" id="UploadCollection" multiple="false"
+												sameFilenameAllowed="false" instantUpload="true" noDataDescription="Use upload button to drop files" change="handleFileUploadDocument"
+												fileDeleted="onFileDeleted" filenameLengthExceed="onFilenameLengthExceed" fileSizeExceed="onFileSizeExceed" typeMissmatch="onTypeMissmatch"
+												uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts" items="{path : '/items', templateShareable : 'true'}">
+												<toolbar>
+													<OverflowToolbar id="myId">
+														<Title id="attachmentTitle"/>
+														<ToolbarSpacer/>
+														<UploadCollectionToolbarPlaceholder/>
+													</OverflowToolbar>
+												</toolbar>
+												<items>
+													<UploadCollectionItem documentId="{documentId}" fileName="{fileName}" mimeType="{mimeType}" thumbnailUrl="{thumbnailUrl}" url="{url}"
+														enableEdit="true" enableDelete="true" visibleDelete="true" visibleEdit="false"
+														attributes="{path : 'attributes', templateShareable : 'true'}" statuses="{path : 'statuses', templateShareable : 'true'}"
+														selected="{selected}">
+														<attributes>
+															<ObjectAttribute title="{title}" text="{path : 'text', formatter : '.formatAttribute'}" active="{active}" textDirection="{textDirection}"/>
+														</attributes>
+														<statuses>
+															<ObjectStatus title="{title}" text="{text}" state="{state}" icon="{icon}" iconDensityAware="{iconDensityAware}"
+																textDirection="{textDirection}"/>
+														</statuses>
+													</UploadCollectionItem>
+												</items>
+											</UploadCollection>
+										</uxap:blocks>
+									</uxap:ObjectPageSubSection>
+				<uxap:ObjectPageSubSection  id="idDECAG" title = "Declaration of Competency" class="display1">
+										<uxap:blocks>
+											<VBox>
+												<Panel width="auto">
+													<headerToolbar >
+														<OverflowToolbar>
+															<Title id="iddef" level="H2" text="Declaration of Competency"/>
+														</OverflowToolbar>
+													</headerToolbar>
+													<content>
+														<l:HorizontalLayout>
+															<!--<Image src="{img>/products/pic1}" width="10em"/>-->
+														</l:HorizontalLayout>
+														<Text id="idlowrisktext"
+															text="As an authorised representative of the employer, I confirm the following mandatory requirements have been met: "
+															class="sapUiResponsiveMargin"></Text>
+														<FlexBox height="40%">
+															<items>
+																<CheckBox class="sapUiSmallMarginBegin" select="onSelectCheck1" id="chk1" wrapping="true" width="10%">
+																	<layoutData>
+																		<FlexItemData/>
+																	</layoutData>
+																</CheckBox>
+																<Text class="sapUiTinyMarginTop sapUiLargeMarginEnd" id="idtextchk1"
+																	text="Our company has verified the above-mentioned employee is currently fit for work in the position specified above by a Risk Based Medical.">
+																	<layoutData>
+																		<FlexItemData/>
+																	</layoutData>
+																</Text>
+															</items>
+														</FlexBox>
+														<FlexBox height="40%">
+															<items>
+																<CheckBox width="10%" id="chk2" select="onSelectCheck2" class="sapUiSmallMarginBegin">
+																	<layoutData>
+																		<FlexItemData/>
+																	</layoutData>
+																</CheckBox>
+																<Text class="sapUiTinyMarginTop" id="idtextchk2"
+																	text="Our company has verified that our employee has the statutory licenses, and mandatory qualifications and skills that industry deems relevant to the role they are undertaking. (A list of the minimum requirements for specific job roles is located on the Fortescue Contractor Extranet).">
+																	<layoutData>
+																		<FlexItemData/>
+																	</layoutData>
+																</Text>
+															</items>
+														</FlexBox>
+														<FlexBox class="sapUiDemoFlexBoxSizeAdjustmentsZeroWidthItems" alignItems="Start">
+															<items>
+																<CheckBox width="10%" select="onSelectCheck3" id="chk3" class="sapUiSmallMarginBegin">
+																	<layoutData>
+																		<FlexItemData growFactor="0"/>
+																	</layoutData>
+																</CheckBox>
+																<Text class="sapUiTinyMarginTop" id="idtextchk3"
+																	text="Our company has uploaded a copy of statutory licenses and mandatory qualifications as necessary for job role to the Fortescue mobilisation system.">
+																	<layoutData>
+																		<FlexItemData growFactor="1"/>
+																	</layoutData>
+																</Text>
+															</items>
+														</FlexBox>
+														<FlexBox class="sapUiDemoFlexBoxSizeAdjustmentsZeroWidthItems" alignItems="Start">
+															<items>
+																<CheckBox id="chk4" select="onSelectCheck4" width="20%" class="sapUiSmallMarginBegin">
+																	<layoutData>
+																		<FlexItemData/>
+																	</layoutData>
+																</CheckBox>
+																<Text class="sapUiTinyMarginTop" id="idtextchk4"
+																	text="Our company declares that if the above mentioned employee changes job role at any time whilst on a Fortescue site, it will change the employees job role on the Fortescue mobilisation system and upload any additional competency requirements fit for the new job role.">
+																	<layoutData>
+																		<FlexItemData growFactor="1"/>
+																	</layoutData>
+																</Text>
+															</items>
+														</FlexBox>
+													</content>
+												</Panel>
+												<Panel width="auto" id="idsubpannel">
+													<headerToolbar>
+														<OverflowToolbar>
+															<Title id="iddecwork" level="H2" text="Declaration of Fitness for Work "/>
+														</OverflowToolbar>
+													</headerToolbar>
+													<content>
+														<Text id="authorisedid"
+															text="As an authorised representative of the employer, I confirm the following mandatory requirements have been met:"
+															class="sapUiResponsiveMargin"></Text>
+														<FlexBox alignItems="Start">
+															<items>
+																<CheckBox width="240px" id="chk5" select="onSelectCheck5" class="sapUiSmallMarginBegin">
+																	<layoutData>
+																		<FlexItemData/>
+																	</layoutData>
+																</CheckBox>
+																<Text class="sapUiTinyMarginTop" id="idtextchk5"
+																	text="Our company has informed this employee that they will be subject to drug and alcohol testing whilst working at a Fortescue site.">
+																	<layoutData>
+																		<FlexItemData/>
+																	</layoutData>
+																</Text>
+															</items>
+														</FlexBox>
+														<FlexBox alignItems="Start">
+															<items>
+																<CheckBox width="240px" id="chk6" select="onSelectCheck6" class="sapUiSmallMarginBegin">
+																	<layoutData>
+																		<FlexItemData/>
+																	</layoutData>
+																</CheckBox>
+																<Text class="sapUiTinyMarginTop" id="idtextchk6"
+																	text="Our company has identified all the necessary statutory and regulatory medicals that this employee will be subject to, in their work performed at the Fortescue site, and that our company will undertake these medicals within the legislated periods allowable for such medicals.">
+																	<layoutData>
+																		<FlexItemData/>
+																	</layoutData>
+																</Text>
+															</items>
+														</FlexBox>
+														<Label text=""/>
+														<Label text=""/>
+														<Label text=""/>
+														<Label text=""/>
+														<FlexBox alignItems="Start">
+															<items>
+																<Text class="sapUiResponsiveMargin" id="idnotetext"
+																	text="Note:- For all personnel who can be classified as a Rail Safety Worker, under the National Standards for Health Assessment for Rail Safety Workers, a copy of their Track Safety Health Assessment Request and Report Form must be confidentially emailed to: hedlandtraining@fmgl.com.au">
+																	<layoutData>
+																		<FlexItemData growFactor="1"/>
+																	</layoutData>
+																</Text>
+															</items>
+														</FlexBox>
+													</content>
+												</Panel>
+											</VBox>
+										</uxap:blocks>
+									</uxap:ObjectPageSubSection>
+					<uxap:ObjectPageSubSection id="idDecLRW" title="Declaration for Low Risk Worker" class="display1">
+										<uxap:blocks>
+											<VBox id="Form2">
+												
+												<Panel>
+				<headerToolbar >
+														<OverflowToolbar>
+															<Title id="idDecLowRisk" level="H2" text="Declaration for Low Risk Worker"/>
+														</OverflowToolbar>
+													</headerToolbar>
+													<ScrollContainer horizontal="true">
+														<content>
+															<Text id="idLWRText" text="{i18n>Dec13}" class="sapUiResponsiveMargin"></Text>
+															<!--		<Text text="{i18n>Dec13}" class="sapUiMediumMarginBegin sapUiSmallMarginTop sapUiLargeMarginEnd"/>  	-->
+															<!--	<CheckBox class="sapUiMediumMarginBegin sapUiSmallMarginTop sapUiLargeMarginEnd"   text="{i18n>Dec14}" id="chk17" wrapping="true" editable="false" selected="true"/> -->
+															<!--<CheckBox id="chk18" text="{i18n>Dec15}" class="sapUiMediumMarginBegin"  wrapping="true" selected="true" editable="false"/>-->
+															<!--	<CheckBox wrapping="true" id="chk9" text="{i18n>Dec16}" selected="true" class="sapUiMediumMarginBegin" editable="false"/>-->
+															<!--	<CheckBox id="chk10" wrapping="true" text="{i18n>Dec17}" class="sapUiMediumMarginBegin" editable="false" selected="true"/>-->
+															<FlexBox height="40%">
+																<items>
+																	<CheckBox class="sapUiSmallMarginBegin" select="onSelectCheck7" id="chk7" wrapping="true" width="10%">
+																		<layoutData>
+																			<FlexItemData/>
+																		</layoutData>
+																	</CheckBox>
+																	<Text class="sapUiTinyMarginTop sapUiLargeMarginEnd" id="idtextchk7" text="{i18n>Dec14}">
+																		<layoutData>
+																			<FlexItemData/>
+																		</layoutData>
+																	</Text>
+																</items>
+															</FlexBox>
+															<FlexBox height="40%">
+																<items>
+																	<CheckBox width="10%" id="chk8" select="onSelectCheck8" class="sapUiSmallMarginBegin">
+																		<layoutData>
+																			<FlexItemData/>
+																		</layoutData>
+																	</CheckBox>
+																	<Text class="sapUiTinyMarginTop" id="idtextchk8" text="{i18n>Dec15}">
+																		<layoutData>
+																			<FlexItemData/>
+																		</layoutData>
+																	</Text>
+																</items>
+															</FlexBox>
+															<FlexBox class="sapUiDemoFlexBoxSizeAdjustmentsZeroWidthItems" alignItems="Start">
+																<items>
+																	<CheckBox width="10%" select="onSelectCheck9" id="chk9" class="sapUiSmallMarginBegin">
+																		<layoutData>
+																			<FlexItemData growFactor="0"/>
+																		</layoutData>
+																	</CheckBox>
+																	<Text class="sapUiTinyMarginTop" id="idtextchk9" text="{i18n>Dec16}">
+																		<layoutData>
+																			<FlexItemData growFactor="1"/>
+																		</layoutData>
+																	</Text>
+																</items>
+															</FlexBox>
+															<FlexBox class="sapUiDemoFlexBoxSizeAdjustmentsZeroWidthItems" alignItems="Start">
+																<items>
+																	<CheckBox id="chk10" select="onSelectCheck10" width="20%" class="sapUiSmallMarginBegin">
+																		<layoutData>
+																			<FlexItemData/>
+																		</layoutData>
+																	</CheckBox>
+																	<Text class="sapUiTinyMarginTop" id="idtextchk10" text="{i18n>Dec17}">
+																		<layoutData>
+																			<FlexItemData growFactor="1"/>
+																		</layoutData>
+																	</Text>
+																</items>
+															</FlexBox>
+														</content>
+													</ScrollContainer>
+												</Panel>
+											</VBox>
+										</uxap:blocks>
+									</uxap:ObjectPageSubSection>
+					
+								</uxap:subSections>
+							</uxap:ObjectPageSection>
+							<!--<uxap:ObjectPageSection class="pad1" id="IDMA" showTitle="false">-->
+							<!--	<uxap:subSections>-->
+							<!--		<uxap:ObjectPageSubSection>-->
+							<!--			<uxap:blocks>-->
+							<!--				<VBox>-->
+							<!--					<f:SimpleForm title="Medical Assessment Requested" id="Med_Agreement" editable="true" layout="ResponsiveGridLayout" labelSpanXL="4"-->
+							<!--						labelSpanL="4" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0"-->
+							<!--						columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="true" class="sapUiSmallMarginBegin">-->
+							<!--						<f:content>-->
+							<!--							<Label required="true" text="Medical Completed" design="Bold" class="cgcolor"/>-->
+							<!--							<ComboBox valueState="None" width="50%" change="medicalChange" id="medicalComp" items="{/MedicalsSet}"-->
+							<!--								placeholder="Please select Medical Completed">-->
+							<!--								<items>-->
+							<!--									<core:Item key="{MED_COMP}" text="{MED_COMP_TEXT}"/>-->
+							<!--								</items>-->
+							<!--							</ComboBox>-->
+							<!--							<Label text="data" visible="false"/>-->
+							<!--							<Input id="idmedinput" width="50%" visible="false" change="medicalInputchange"></Input>-->
+							<!--							<Label required="true" text="Date Completed" design="Bold" class="cgcolor"/>-->
+							<!--							<DatePicker displayFormat="dd.MM.yyyy" valueFormat="yyyy-MM-dd" id="dateComp" width="50%" change="completedChnage"-->
+							<!--								placeholder="Please pick Date Completed"/>-->
+							<!--							<Label required="true" text="AOD test completed within 28 days of mobilisation" design="Bold" class="cgcolor"/>-->
+							<!--							<ComboBox valueState="None" id="AODTEST" change="AOD_Change" width="50%" items="{AODTestmodel>/AODDATA}"-->
+							<!--								placeholder="Please select AOD test Completed">-->
+							<!--								<items>-->
+							<!--									<core:Item key="{AODTestmodel>Code}" text="{AODTestmodel>Text}"/>-->
+							<!--								</items>-->
+							<!--							</ComboBox>-->
+							<!--							<Label required="true" text="Fitness for work risk level from medical" design="Bold" class="cgcolor"/>-->
+							<!--							<ComboBox valueState="None" width="50%" id="medicalfitness" change="fitness_Change" items="{/RiskTypeHelpSet}"-->
+							<!--								placeholder="Please select Fitness">-->
+							<!--								<items>-->
+							<!--									<core:Item key="{Code}" text="{Text}"/>-->
+							<!--								</items>-->
+							<!--							</ComboBox>-->
+							<!--							<Label required="true" text="A Health management plan is in place for any Higher Health Risk Medical" design="Bold" class="cgcolor"/>-->
+														
+							<!--							<ComboBox valueState="None" width="50%" id="healthmanagement" change="healthmanagenet_Change" items="{healthPlanmodel>/health}"-->
+							<!--								placeholder="Please select Health management plan">-->
+							<!--								<items>-->
+							<!--									<core:Item key="{healthPlanmodel>Code}" text="{healthPlanmodel>Text}"/>-->
+							<!--								</items>-->
+							<!--							</ComboBox>-->
+							<!--						</f:content>-->
+							<!--					</f:SimpleForm>-->
+							<!--					<VBox id="idImage">-->
+							<!--						<Label class="sapUiTinyMarginBegin sapUiTinyMarginTop cgcolor" text="FMG Medical Assessment Types" textAlign="Begin" design="Bold"-->
+							<!--							width="100%"/>-->
+							<!--						<Image class="sapUiTinyMarginBegin sapUiTinyMarginTop" src="/sap/bc/ui5_ui5/sap/zhr_cms_vnd_req/Images/Medical_Assesment5.png"-->
+							<!--							decorative="false" width="300px">-->
+							<!--							<detailBox>-->
+							<!--								<LightBox>-->
+							<!--									<LightBoxItem imageSrc="/sap/bc/ui5_ui5/sap/zhr_cms_vnd_req/Images/Medical_Assesment5.png" alt="Beamer" title="FMG Medical Assessment Types"-->
+							<!--										subtitle=""/>-->
+							<!--								</LightBox>-->
+							<!--							</detailBox>-->
+							<!--							<layoutData>-->
+							<!--								<FlexItemData growFactor="1"/>-->
+							<!--							</layoutData>-->
+							<!--						</Image>-->
+							<!--					</VBox>-->
+							<!--				</VBox>-->
+							<!--			</uxap:blocks>-->
+							<!--		</uxap:ObjectPageSubSection>-->
+									
+									
+									
+									
+									
+							<!--	</uxap:subSections>-->
+							<!--</uxap:ObjectPageSection>-->
+					
+							<!--<uxap:ObjectPageSection class="pad1" id="idUploadcollection">-->
+							<!--	<uxap:subSections>-->
+							<!--		<uxap:ObjectPageSubSection>-->
+							<!--			<uxap:blocks>-->
+							<!--				<UploadCollection uploadUrl="/sap/opu/odata/sap/ZHR_CMS_ATTACH_SRV/FileSet" id="UploadCollection" multiple="false"-->
+							<!--					sameFilenameAllowed="false" instantUpload="true" noDataDescription="Use upload button to drop files" change="handleFileUploadDocument"-->
+							<!--					fileDeleted="onFileDeleted" filenameLengthExceed="onFilenameLengthExceed" fileSizeExceed="onFileSizeExceed" typeMissmatch="onTypeMissmatch"-->
+							<!--					uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts" items="{path : '/items', templateShareable : 'true'}">-->
+							<!--					<toolbar>-->
+							<!--						<OverflowToolbar id="myId">-->
+							<!--							<Title id="attachmentTitle"/>-->
+							<!--							<ToolbarSpacer/>-->
+							<!--							<UploadCollectionToolbarPlaceholder/>-->
+							<!--						</OverflowToolbar>-->
+							<!--					</toolbar>-->
+							<!--					<items>-->
+							<!--						<UploadCollectionItem documentId="{documentId}" fileName="{fileName}" mimeType="{mimeType}" thumbnailUrl="{thumbnailUrl}" url="{url}"-->
+							<!--							enableEdit="true" enableDelete="true" visibleDelete="true" visibleEdit="false"-->
+							<!--							attributes="{path : 'attributes', templateShareable : 'true'}" statuses="{path : 'statuses', templateShareable : 'true'}"-->
+							<!--							selected="{selected}">-->
+							<!--							<attributes>-->
+							<!--								<ObjectAttribute title="{title}" text="{path : 'text', formatter : '.formatAttribute'}" active="{active}" textDirection="{textDirection}"/>-->
+							<!--							</attributes>-->
+							<!--							<statuses>-->
+							<!--								<ObjectStatus title="{title}" text="{text}" state="{state}" icon="{icon}" iconDensityAware="{iconDensityAware}"-->
+							<!--									textDirection="{textDirection}"/>-->
+							<!--							</statuses>-->
+							<!--						</UploadCollectionItem>-->
+							<!--					</items>-->
+							<!--				</UploadCollection>-->
+							<!--			</uxap:blocks>-->
+							<!--		</uxap:ObjectPageSubSection>-->
+							<!--	</uxap:subSections>-->
+							<!--</uxap:ObjectPageSection>-->
+	<!--<uxap:ObjectPageSection class="pad1" id="idDECAG" showTitle="false" visible="false">-->
+	<!--							<uxap:subSections>-->
+	<!--								<uxap:ObjectPageSubSection>-->
+	<!--									<uxap:blocks>-->
+	<!--										<VBox>-->
+	<!--											<Panel widt						h="auto" accessibleRole="Region">-->
+	<!--												<headerToolbar >-->
+	<!--													<OverflowToolbar>-->
+	<!--														<Title id="iddef" level="H2" text="Declaration of Competency"/>-->
+	<!--													</OverflowToolbar>-->
+	<!--												</headerToolbar>-->
+	<!--												<content>-->
+	<!--													<l:HorizontalLayout>-->
+															<!--<Image src="{img>/products/pic1}" width="10em"/>-->
+	<!--													</l:HorizontalLayout>-->
+	<!--													<Text id="idlowrisktext"-->
+	<!--														text="As an authorised representative of the employer, I confirm the following mandatory requirements have been met: "-->
+	<!--														class="sapUiResponsiveMargin"></Text>-->
+	<!--													<FlexBox height="40%">-->
+	<!--														<items>-->
+	<!--															<CheckBox class="sapUiSmallMarginBegin" select="onSelectCheck1" id="chk1" wrapping="true" width="10%">-->
+	<!--																<layoutData>-->
+	<!--																	<FlexItemData/>-->
+	<!--																</layoutData>-->
+	<!--															</CheckBox>-->
+	<!--															<Text class="sapUiTinyMarginTop sapUiLargeMarginEnd" id="idtextchk1"-->
+	<!--																text="Our company has verified the above-mentioned employee is currently fit for work in the position specified above by a Risk Based Medical.">-->
+	<!--																<layoutData>-->
+	<!--																	<FlexItemData/>-->
+	<!--																</layoutData>-->
+	<!--															</Text>-->
+	<!--														</items>-->
+	<!--													</FlexBox>-->
+	<!--													<FlexBox height="40%">-->
+	<!--														<items>-->
+	<!--															<CheckBox width="10%" id="chk2" select="onSelectCheck2" class="sapUiSmallMarginBegin">-->
+	<!--																<layoutData>-->
+	<!--																	<FlexItemData/>-->
+	<!--																</layoutData>-->
+	<!--															</CheckBox>-->
+	<!--															<Text class="sapUiTinyMarginTop" id="idtextchk2"-->
+	<!--																text="Our company has verified that our employee has the statutory licenses, and mandatory qualifications and skills that industry deems relevant to the role they are undertaking. (A list of the minimum requirements for specific job roles is located on the Fortescue Contractor Extranet).">-->
+	<!--																<layoutData>-->
+	<!--																	<FlexItemData/>-->
+	<!--																</layoutData>-->
+	<!--															</Text>-->
+	<!--														</items>-->
+	<!--													</FlexBox>-->
+	<!--													<FlexBox class="sapUiDemoFlexBoxSizeAdjustmentsZeroWidthItems" alignItems="Start">-->
+	<!--														<items>-->
+	<!--															<CheckBox width="10%" select="onSelectCheck3" id="chk3" class="sapUiSmallMarginBegin">-->
+	<!--																<layoutData>-->
+	<!--																	<FlexItemData growFactor="0"/>-->
+	<!--																</layoutData>-->
+	<!--															</CheckBox>-->
+	<!--															<Text class="sapUiTinyMarginTop" id="idtextchk3"-->
+	<!--																text="Our company has uploaded a copy of statutory licenses and mandatory qualifications as necessary for job role to the Fortescue mobilisation system.">-->
+	<!--																<layoutData>-->
+	<!--																	<FlexItemData growFactor="1"/>-->
+	<!--																</layoutData>-->
+	<!--															</Text>-->
+	<!--														</items>-->
+	<!--													</FlexBox>-->
+	<!--													<FlexBox class="sapUiDemoFlexBoxSizeAdjustmentsZeroWidthItems" alignItems="Start">-->
+	<!--														<items>-->
+	<!--															<CheckBox id="chk4" select="onSelectCheck4" width="20%" class="sapUiSmallMarginBegin">-->
+	<!--																<layoutData>-->
+	<!--																	<FlexItemData/>-->
+	<!--																</layoutData>-->
+	<!--															</CheckBox>-->
+	<!--															<Text class="sapUiTinyMarginTop" id="idtextchk4"-->
+	<!--																text="Our company declares that if the above mentioned employee changes job role at any time whilst on a Fortescue site, it will change the employees job role on the Fortescue mobilisation system and upload any additional competency requirements fit for the new job role.">-->
+	<!--																<layoutData>-->
+	<!--																	<FlexItemData growFactor="1"/>-->
+	<!--																</layoutData>-->
+	<!--															</Text>-->
+	<!--														</items>-->
+	<!--													</FlexBox>-->
+	<!--												</content>-->
+	<!--											</Panel>-->
+	<!--											<Panel width="auto" id="idsubpannel">-->
+	<!--												<headerToolbar>-->
+	<!--													<OverflowToolbar>-->
+	<!--														<Title id="iddecwork" level="H2" text="Declaration of Fitness for Work "/>-->
+	<!--													</OverflowToolbar>-->
+	<!--												</headerToolbar>-->
+	<!--												<content>-->
+	<!--													<Text id="authorisedid"-->
+	<!--														text="As an authorised representative of the employer, I confirm the following mandatory requirements have been met:"-->
+	<!--														class="sapUiResponsiveMargin"></Text>-->
+	<!--													<FlexBox alignItems="Start">-->
+	<!--														<items>-->
+	<!--															<CheckBox width="240px" id="chk5" select="onSelectCheck5" class="sapUiSmallMarginBegin">-->
+	<!--																<layoutData>-->
+	<!--																	<FlexItemData/>-->
+	<!--																</layoutData>-->
+	<!--															</CheckBox>-->
+	<!--															<Text class="sapUiTinyMarginTop" id="idtextchk5"-->
+	<!--																text="Our company has informed this employee that they will be subject to drug and alcohol testing whilst working at a Fortescue site.">-->
+	<!--																<layoutData>-->
+	<!--																	<FlexItemData/>-->
+	<!--																</layoutData>-->
+	<!--															</Text>-->
+	<!--														</items>-->
+	<!--													</FlexBox>-->
+	<!--													<FlexBox alignItems="Start">-->
+	<!--														<items>-->
+	<!--															<CheckBox width="240px" id="chk6" select="onSelectCheck6" class="sapUiSmallMarginBegin">-->
+	<!--																<layoutData>-->
+	<!--																	<FlexItemData/>-->
+	<!--																</layoutData>-->
+	<!--															</CheckBox>-->
+	<!--															<Text class="sapUiTinyMarginTop" id="idtextchk6"-->
+	<!--																text="Our company has identified all the necessary statutory and regulatory medicals that this employee will be subject to, in their work performed at the Fortescue site, and that our company will undertake these medicals within the legislated periods allowable for such medicals.">-->
+	<!--																<layoutData>-->
+	<!--																	<FlexItemData/>-->
+	<!--																</layoutData>-->
+	<!--															</Text>-->
+	<!--														</items>-->
+	<!--													</FlexBox>-->
+	<!--													<Label text=""/>-->
+	<!--													<Label text=""/>-->
+	<!--													<Label text=""/>-->
+	<!--													<Label text=""/>-->
+	<!--													<FlexBox alignItems="Start">-->
+	<!--														<items>-->
+	<!--															<Text class="sapUiResponsiveMargin" id="idnotetext"-->
+	<!--																text="Note:- For all personnel who can be classified as a Rail Safety Worker, under the National Standards for Health Assessment for Rail Safety Workers, a copy of their Track Safety Health Assessment Request and Report Form must be confidentially emailed to: hedlandtraining@fmgl.com.au">-->
+	<!--																<layoutData>-->
+	<!--																	<FlexItemData growFactor="1"/>-->
+	<!--																</layoutData>-->
+	<!--															</Text>-->
+	<!--														</items>-->
+	<!--													</FlexBox>-->
+	<!--												</content>-->
+	<!--											</Panel>-->
+	<!--										</VBox>-->
+	<!--									</uxap:blocks>-->
+	<!--								</uxap:ObjectPageSubSection>-->
+	<!--							</uxap:subSections>-->
+	<!--						</uxap:ObjectPageSection>-->
+							<!--<uxap:ObjectPageSection class="pad1 blue" id="idDecLRW" showTitle="false" visible="false" >-->
+							<!--	<uxap:subSections >-->
+							<!--		<uxap:ObjectPageSubSection >-->
+							<!--			<uxap:blocks>-->
+							<!--				<VBox id="Form2">-->
+							<!--					<Panel width="auto">-->
+							<!--						<headerToolbar >-->
+							<!--							<OverflowToolbar>-->
+							<!--								<Title id="idDecLowRisk" level="H2" text="Declaration for Low Risk Worker"/>-->
+							<!--							</OverflowToolbar>-->
+							<!--						</headerToolbar>-->
+							<!--						<ScrollContainer horizontal="true">-->
+							<!--							<content>-->
+							<!--								<Text id="idLWRText" text="{i18n>Dec13}" class="sapUiResponsiveMargin"></Text>-->
+							<!--										<Text text="{i18n>Dec13}" class="sapUiMediumMarginBegin sapUiSmallMarginTop sapUiLargeMarginEnd"/>  	-->
+							<!--									<CheckBox class="sapUiMediumMarginBegin sapUiSmallMarginTop sapUiLargeMarginEnd"   text="{i18n>Dec14}" id="chk17" wrapping="true" editable="false" selected="true"/> -->
+							<!--								<CheckBox id="chk18" text="{i18n>Dec15}" class="sapUiMediumMarginBegin"  wrapping="true" selected="true" editable="false"/>-->
+							<!--									<CheckBox wrapping="true" id="chk9" text="{i18n>Dec16}" selected="true" class="sapUiMediumMarginBegin" editable="false"/>-->
+							<!--									<CheckBox id="chk10" wrapping="true" text="{i18n>Dec17}" class="sapUiMediumMarginBegin" editable="false" selected="true"/>-->
+							<!--								<FlexBox height="40%">-->
+							<!--									<items>-->
+							<!--										<CheckBox class="sapUiSmallMarginBegin" select="onSelectCheck7" id="chk7" wrapping="true" width="10%">-->
+							<!--											<layoutData>-->
+							<!--												<FlexItemData/>-->
+							<!--											</layoutData>-->
+							<!--										</CheckBox>-->
+							<!--										<Text class="sapUiTinyMarginTop sapUiLargeMarginEnd" id="idtextchk7" text="{i18n>Dec14}">-->
+							<!--											<layoutData>-->
+							<!--												<FlexItemData/>-->
+							<!--											</layoutData>-->
+							<!--										</Text>-->
+							<!--									</items>-->
+							<!--								</FlexBox>-->
+							<!--								<FlexBox height="40%">-->
+							<!--									<items>-->
+							<!--										<CheckBox width="10%" id="chk8" select="onSelectCheck8" class="sapUiSmallMarginBegin">-->
+							<!--											<layoutData>-->
+							<!--												<FlexItemData/>-->
+							<!--											</layoutData>-->
+							<!--										</CheckBox>-->
+							<!--										<Text class="sapUiTinyMarginTop" id="idtextchk8" text="{i18n>Dec15}">-->
+							<!--											<layoutData>-->
+							<!--												<FlexItemData/>-->
+							<!--											</layoutData>-->
+							<!--										</Text>-->
+							<!--									</items>-->
+							<!--								</FlexBox>-->
+							<!--								<FlexBox class="sapUiDemoFlexBoxSizeAdjustmentsZeroWidthItems" alignItems="Start">-->
+							<!--									<items>-->
+							<!--										<CheckBox width="10%" select="onSelectCheck9" id="chk9" class="sapUiSmallMarginBegin">-->
+							<!--											<layoutData>-->
+							<!--												<FlexItemData growFactor="0"/>-->
+							<!--											</layoutData>-->
+							<!--										</CheckBox>-->
+							<!--										<Text class="sapUiTinyMarginTop" id="idtextchk9" text="{i18n>Dec16}">-->
+							<!--											<layoutData>-->
+							<!--												<FlexItemData growFactor="1"/>-->
+							<!--											</layoutData>-->
+							<!--										</Text>-->
+							<!--									</items>-->
+							<!--								</FlexBox>-->
+							<!--								<FlexBox class="sapUiDemoFlexBoxSizeAdjustmentsZeroWidthItems" alignItems="Start">-->
+							<!--									<items>-->
+							<!--										<CheckBox id="chk10" select="onSelectCheck10" width="20%" class="sapUiSmallMarginBegin">-->
+							<!--											<layoutData>-->
+							<!--												<FlexItemData/>-->
+							<!--											</layoutData>-->
+							<!--										</CheckBox>-->
+							<!--										<Text class="sapUiTinyMarginTop" id="idtextchk10" text="{i18n>Dec17}">-->
+							<!--											<layoutData>-->
+							<!--												<FlexItemData growFactor="1"/>-->
+							<!--											</layoutData>-->
+							<!--										</Text>-->
+							<!--									</items>-->
+							<!--								</FlexBox>-->
+							<!--							</content>-->
+							<!--						</ScrollContainer>-->
+							<!--					</Panel>-->
+							<!--				</VBox>-->
+							<!--			</uxap:blocks>-->
+							<!--		</uxap:ObjectPageSubSection>-->
+							<!--	</uxap:subSections>-->
+							<!--</uxap:ObjectPageSection>-->
+						<uxap:ObjectPageSection class="pad1" id="IDCT" title= "COVID-19 VACCINE TRACKING">
+								<uxap:subSections>
+									<uxap:ObjectPageSubSection>
+										<uxap:blocks>
+											<VBox>
+												<f:SimpleForm id="Covid_Tracker" editable="true" layout="ResponsiveGridLayout" labelSpanXL="4"
+													labelSpanL="4" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0"
+													columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="true" class="sapUiSmallMarginBegin iconsize">
+													<f:content>
+									<!--<CheckBox  select="onSelectCheckbox" id="idCovidcheckbox" width="10%" class= "sapUiLargeMarginBegin sapUiSmallMarginEnd"/>-->
+									<!--<Text  class="cgcolor" text="{i18n>CovidMsg}"/>-->
+										<FlexBox class="sapUiMediumMarginBegin" alignItems="Center">
+																<items>
+																	<CheckBox id="idCovidChkbx" select= "onCovidFormSelect" width="20%" class="sapUiMediumMarginBegin">
+																		<layoutData>
+																			<FlexItemData/>
+																		</layoutData>
+																	</CheckBox>
+																	<Text wrapping = "true"  class="cgcolor sapUiTinyMarginTop" id="idCovidText" text="{i18n>CovidMsg}">
+																		<layoutData>
+																			<FlexItemData growFactor="1"/>
+																		</layoutData>
+																	</Text>
+																</items>
+															</FlexBox>
+														<Label required="true" text="When would you like your changes to take effect?" design="Bold" class="cgcolor"/>
+														<Text>
+															<layoutData>
+																<l:GridData span="XL1 L1 M1 S12"/>
+															</layoutData>
+														</Text>
+														<DatePicker id="CFDD" displayFormat="dd.MM.yyyy" valueFormat="yyyy-MM-dd" change="Firstdosechange" width="54%"
+														editable="false"	placeholder="Enter changes to take Effect Date"/>
+														<Label  required="true" text="Vaccination status" design="Bold" class="cgcolor"/>
+														<Text>
+															<layoutData>
+																<l:GridData span="XL1 L1 M1 S12"/>
+															</layoutData>
+														</Text>
+														<ComboBox id="idvaccinestatus" valueState="None" width="54%" items="{/VaccinationStatusSet}" change = "onVaccineStatusChange"  placeholder="Please select Vaccination Status">
+														<core:Item key="{Code}" text="{Status}"/>
+															
+														</ComboBox>
+														<Label id="idDateofLastVacc"  required="true" text="Date of last vaccination" design="Bold" class="cgcolor"></Label>
+														<!--	   <HBox>-->
+														<!--<core:Icon src="sap-icon://sys-help"   color="#031E48" press="onseconddosage" class="infoIcon" tooltip ="Not Applicable if you have only had your first dose" >				 -->
+														<!--												<layoutData>-->
+														<!--	<l:GridData span="XL4 L4 M4 S4" />-->
+														<!--</layoutData>-->
+														<!--	</core:Icon>-->
+														<!--</HBox>-->
+														<!--<core:Icon src="sap-icon://sys-help"  width = "-23%" color="#031E48" press="onseconddosage" class="infoIcon" tooltip ="Not Applicable if you have only had your first dose" />-->
+														<!--      <layoutData>-->
+														<!--          <l:GridData span="XL1 L1 M1 S1" />-->
+														<!--      </layoutData>-->
+														<!--        </HBox>  -->
+														<core:Icon src="sap-icon://sys-help" class="sapUiTinyMarginTop infoIcon" tooltip="If Medically Exempt please enter the date that your exemption was granted"
+															color="#031E48" press="onseconddosage">
+															<core:layoutData>
+																<l:GridData span="XL1 L1 M1 S2"/>
+															</core:layoutData>
+														</core:Icon>
+														<DatePicker id="SeconddoseDate" width="54%" displayFormat="dd.MM.yyyy" valueFormat="yyyy-MM-dd"
+															placeholder="Please enter Date of Last Vacc." change="Seconddosechange">
+															
+														</DatePicker>
+														<!--  <HBox>-->
+														<!--    <core:Icon src="sap-icon://sys-help" color="#031E48" press="onseconddosage" class="infoIcon" tooltip ="Not Applicable if you have only had your first dose" />-->
+														<!--    <layoutData>-->
+														<!--        <l:GridData span="XL1 L1 M1 S1" />-->
+														<!--    </layoutData>-->
+														<!--</HBox>  -->
+														<Label  required="true" text="By Uploading this document I give Fortescue consent to collect, maintain and validate my COVID-19 vaccination status"
+															design="Bold" class="cgcolor"/>
+														<Text>
+															<layoutData>
+																<l:GridData span="XL1 L1 M1 S12"/>
+															</layoutData>
+														</Text>
+														<ComboBox valueState="None" width="54%" id="Consent" placeholder="Please select Consent" change = "onConsentChange">
+															<items>
+																<core:Item key="Yes" text="Yes"/>
+															</items>
+														</ComboBox>
+								
+														<Label text="Medical Exemption Expiry" design="Bold" class="cgcolor"></Label>
+									
+														<core:Icon src="sap-icon://sys-help" class="sapUiTinyMarginTop infoIcon" tooltip="Only Applicable if Applying for a Medical Exemption"
+															color="#031E48" press="onMedicalExpemtion">
+															<core:layoutData>
+																<l:GridData span="XL1 L1 M1 S2"/>
+															</core:layoutData>
+														</core:Icon>
+												
+														<DatePicker id="medicalExpDate" width="54%" displayFormat="dd.MM.yyyy" valueFormat="yyyy-MM-dd"
+															placeholder="Please enter Medical Exemp. Exp. Date" change="onMedicalExpChange">
+															
+														</DatePicker>
+														<Label required="true" id="idMedicalCertificate"  text="Vaccine Certificate" design="Bold" class="cgcolor"/>
+														<core:Icon src="sap-icon://sys-help" class="sapUiTinyMarginTop infoIcon" 
+															color="#031E48" press = "onVaccineCertificatePress" tooltip = "Only a myGov COVID-19 Digital Certificate or Immunisation History Statement can be uploaded as evidence of vaccination status">
+															<core:layoutData>
+																<l:GridData span="XL1 L1 M1 S2"/>
+															</core:layoutData>
+														</core:Icon>
+														<l:HorizontalLayout >
+															<u:FileUploader width="27.4rem" id="fileUploader" name="myFileUpload" uploadUrl="/sap/opu/odata/sap/ZHR_CMS_ATTACH_SRV/FileSet"
+																tooltip="Upload your file to the server" uploadComplete="handleUploadComplete02" change="onFileUploadChange02" sendXHR="true"
+																useMultipart="false" uploadOnChange="true" style="Emphasized" placeholder="Choose a file for Upload...">
+																
+																
+																
+																
+															</u:FileUploader>
+															<!--<Label/>-->
+															<!--<Button icon="sap-icon://sys-cancel" width="10%" press="onUploadDelete1">-->
+															<!--	<layoutData>-->
+															<!--		<l:GridData span="XL4 L4 M4 S4"/>-->
+															<!--	</layoutData>-->
+															<!--</Button>-->
+															
+														</l:HorizontalLayout>
+														
+														
+													</f:content>
+												</f:SimpleForm>
+											</VBox>
+										</uxap:blocks>
+									</uxap:ObjectPageSubSection>
+								</uxap:subSections>
+							</uxap:ObjectPageSection>
+				
+					
+					
+						</uxap:sections>
+					</uxap:ObjectPageLayout>
+				</content>
+				<footer>
+					<Bar>
+						<contentRight>
+							<Button text="Edit" type="Emphasized" icon="sap-icon://edit" visible="false"/>
+							<Button text="Submit" id="idSubmitButton" type="Emphasized" icon="sap-icon://form" press="onSubmit"/>
+							<Button text="Cancel" id="idCancelButton" icon="sap-icon://cancel" type="Reject" press="handleCancel"/>
+						</contentRight>
+					</Bar>
+				</footer>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

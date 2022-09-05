@@ -1,0 +1,175 @@
+{
+    "_version": "1.12.0",
+    "sap.app": {
+        "id": "com.fmgl.ZHR_CMS_VND_REQ",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "1.0.0"
+        },
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
+        "sourceTemplate": {
+            "id": "servicecatalog.connectivityComponentForManifest",
+            "version": "0.0.0",
+            "toolsId": "8923e0f9-33d1-4625-af4d-9a875a0cfb22"
+        },
+        "dataSources": {
+            "ZHR_CMS_REQ_SRV": {
+                "uri": "/sap/opu/odata/sap/ZHR_CMS_REQ_SRV/",
+                "type": "OData",
+                "settings": {
+                    "localUri": "localService/metadata.xml"
+                }
+            },
+            "ZHR_CMS_ATTACH_SRV": {
+                "uri": "/sap/opu/odata/sap/ZHR_CMS_ATTACH_SRV/",
+                "type": "OData",
+                "settings": {
+                    "localUri": "localService/ZHR_CMS_ATTACH_SRV/metadata.xml"
+                }
+            }
+        }
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "icons": {
+            "icon": "",
+            "favIcon": "",
+            "phone": "",
+            "phone@2": "",
+            "tablet": "",
+            "tablet@2": ""
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        }
+    },
+    "sap.ui5": {
+        "services": {
+            "ShellUIService": {
+                "factoryName": "sap.ushell.ui5service.ShellUIService"
+            }
+        },
+        "flexEnabled": false,
+        "rootView": {
+            "viewName": "com.fmgl.ZHR_CMS_VND_REQ.view.App",
+            "type": "XML",
+            "async": true,
+            "id": "App"
+        },
+        "dependencies": {
+            "minUI5Version": "1.65.6",
+            "libs": {
+                "sap.ui.layout": {},
+                "sap.ui.core": {},
+                "sap.m": {}
+            }
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings": {
+                    "bundleName": "com.fmgl.ZHR_CMS_VND_REQ.i18n.i18n"
+                }
+            },
+            "": {
+                "type": "sap.ui.model.odata.v2.ODataModel",
+                "settings": {
+                    "defaultOperationMode": "Server",
+                    "defaultBindingMode": "OneWay",
+                    "defaultCountMode": "Request",
+                    "useBatch": true
+                },
+                "dataSource": "ZHR_CMS_REQ_SRV",
+                "preload": true
+            },
+            "Attachments_Model": {
+                "type": "sap.ui.model.odata.v2.ODataModel",
+                "settings": {
+                    "defaultOperationMode": "Server",
+                    "defaultBindingMode": "OneWay",
+                    "defaultCountMode": "Request"
+                },
+                "dataSource": "ZHR_CMS_ATTACH_SRV",
+                "preload": true
+            }
+        },
+        "resources": {
+            "css": [
+                {
+                    "uri": "css/style.css"
+                },
+                {
+                    "uri": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+                }
+            ]
+        },
+        "routing": {
+            "config": {
+                "routerClass": "sap.m.routing.Router",
+                "viewType": "XML",
+                "async": true,
+                "viewPath": "com.fmgl.ZHR_CMS_VND_REQ.view",
+                "controlAggregation": "pages",
+                "controlId": "app",
+                "clearControlAggregation": false
+            },
+            "routes": [
+                {
+                    "name": "displayTable",
+                    "pattern": "",
+                    "target": [
+                        "displayTable"
+                    ]
+                },
+                {
+                    "name": "initiateRequest",
+                    "pattern": "initiateRequest",
+                    "titleTarget": "",
+                    "greedy": false,
+                    "target": [
+                        "initiateRequest"
+                    ]
+                }
+            ],
+            "targets": {
+                "displayTable": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "controlAggregation": "pages",
+                    "controlId": "app",
+                    "viewName": "displayTable",
+                    "title": "My Conntractor Details"
+                },
+                "initiateRequest": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "controlAggregation": "pages",
+                    "controlId": "app",
+                    "viewName": "initiateRequest"
+                },
+                "App": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearControlAggregation": false,
+                    "controlAggregation": "pages",
+                    "controlId": "app",
+                    "viewName": "App"
+                }
+            }
+        }
+    },
+    "sap.platform.abap": {
+        "uri": "/sap/bc/ui5_ui5/sap/zhr_cms_vnd_req/webapp",
+        "_version": "1.1.0"
+    }
+}

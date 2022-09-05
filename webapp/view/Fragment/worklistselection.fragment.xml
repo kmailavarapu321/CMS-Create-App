@@ -1,0 +1,26 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:u="sap.ui.unified" xmlns:core="sap.ui.core" class="sapUiSizeCompact"
+	xmlns:fb="sap.ui.comp.filterbar" xmlns:f="sap.ui.layout.form">
+	<Dialog id="idselectdept1" title="Select Request Type" titleAlignment="Center" class="sapUiSizeCompact">
+		<content>
+			<f:SimpleForm id="idform99" title="" editable="true" layout="ResponsiveGridLayout" labelSpanL="4" labelSpanM="4" emptySpanL="5"
+				emptySpanM="5">
+				<f:content>
+					<RadioButtonGroup id="rbgtype" selectedIndex="{/rbgtype}" select = "onClearValueStates">
+						<RadioButton id="NMC" text="Personal Info. Change"/>
+						<RadioButton id="Cocf" text="Change Of Conditions"/>
+						<RadioButton id="Term" text="Demobilise"/>
+						<RadioButton id="ExtEndDate" text="Extend End Date"/>
+						<RadioButton id="idCovidVaccineTracking" text="Covid-19 Vaccination Update"/>
+						
+					</RadioButtonGroup>
+				</f:content>
+			</f:SimpleForm>
+		</content>
+		<beginButton>
+			<Button text="OK" type="Emphasized" press="onnotification" class="sapUiSizeCompact"/>
+		</beginButton>
+		<endButton>
+			<Button id="idbtntext" text="Cancel" type="Reject" press="ondatachange" class="sapUiSizeCompact"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

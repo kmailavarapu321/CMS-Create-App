@@ -1,0 +1,111 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:semantic="sap.f.semantic" xmlns:f="sap.f"
+	xmlns:fb="sap.ui.comp.filterbar" xmlns:layout="sap.ui.layout" xmlns:vm="sap.ui.comp.variants"
+	controllerName="com.fmgl.ZHR_CMS_VND_REQ.controller.displayTable" xmlns:html="http://www.w3.org/1999/xhtml">
+	<App>
+		<pages>
+			<Page id="master" title="My Active Contractors" titleLevel="H1" enableScrolling="true" titleAlignment="Center" class="primary1">
+				<!--		<customHeader> -->
+				<Bar class="primary1 test" id="idBar">
+					<contentLeft>
+						<Image src="Images/FMGMASTERBRAND.jpg" id="Fmglogo" visible="false"></Image>
+					</contentLeft>
+					<contentMiddle>
+						<Text text="My Active Contractors"></Text>
+					</contentMiddle>
+					<contentRight></contentRight>
+				</Bar>
+				<!--	</customHeader> -->
+				<content>
+				<ObjectHeader id="idlisttable" title="List of My Active Contractors with Fortescue Metals Group"
+						number=""
+						numberUnit="Contractors" class="cgcolor sapUiMediumMarginBegin sapUiMediumMarginEnd" numberState="Success" >
+						<ObjectAttribute id="idvendor" title="Vendor" class="txt-color1" text="{InitialModel>/CrUnam}" active="true"/>
+					</ObjectHeader>
+					<Table id="table" growing="true" updateFinished="handleToItemsUpdateFinished"  sticky="HeaderToolbar,InfoToolbar,ColumnHeaders" growingThreshold="9999"  alternateRowColors="true" growingScrollToLoad="true" width="auto"
+							items="{PERTABELModel>/}" class="sapUiResponsiveContentPadding" >
+							<infoToolbar class="sapUiTinyMarginBottom">
+						<Toolbar id="infoTable" active="false" visible="false" press="handleInfobarPress" class="sapUiTinyMarginBottom">
+							<Label id="labelBanner" text="" design="Bold"/>
+							<ToolbarSpacer/>
+							<core:Icon src="sap-icon://decline" width="2rem" press="onIconPress"/>
+						</Toolbar>
+					</infoToolbar>
+							<headerToolbar>
+								<Toolbar>
+									<Label id="idset" ></Label>
+									<ToolbarSpacer/>
+									<!--<SearchField id="searchField" tooltip="{i18n>worklistSearchTooltip}" liveChange="onlivesearch" search="onlivesearch" width="auto"></SearchField>-->
+								<SearchField id="searchField" tooltip="worklistSearchTooltip" search="onlivesearch" liveChange="onlivesearch" width="auto"></SearchField>	
+								
+									<Button id="idRefreshButton" icon="sap-icon://refresh" type="Emphasized" press="onRefreshPress"/>
+									<Button id="idSortButton" icon="sap-icon://sort" type="Emphasized" press="oniconsort"/>
+								
+									<Button id="idexcel" icon="sap-icon://excel-attachment" tooltip = "Export" type="Emphasized" press="onExportPress"/>
+										<Button id="idnewhire" text="Onboard Contractors" type="Emphasized" press="onnewhire"/>
+								</Toolbar>
+							</headerToolbar>
+							<columns>
+								<Column id="nameColumn" hAlign="Center">
+									<Label design="Bold" text="Fortescue Id" class="cgcolor"/>
+								</Column>
+								<Column id="supplierNameColumn" hAlign="Center" demandPopin="false" minScreenWidth="Tablet">
+									<Label design="Bold" text="Full Name" class="cgcolor"/>
+								</Column>
+								<!--<Column id="unitPriceColumn" hAlign="Center" demandPopin="true" minScreenWidth="Tablet">-->
+								<!--	<Label design="Bold" text="Middle Name" class="cgcolor"/>-->
+								<!--</Column>-->
+								<!--<Column id="unitsOnOrderColumn" demandPopin="true" minScreenWidth="Tablet" hAlign="Center">-->
+								<!--	<Label design="Bold" text="Last Name" class="cgcolor"/>-->
+								<!--</Column>-->
+								<Column id="unitsInStockColumn" hAlign="Center">
+									<Label design="Bold" text="DOB" class="cgcolor"/>
+								</Column>
+								<!--<Column id="idsunitsInStockColumn" hAlign="Center">-->
+								<!--	<Label design="Bold" text="Employee Group"  class="cgcolor"/>-->
+								<!--</Column>-->
+								<Column id="unistsInStockColumn" hAlign="Center">
+									<Label design="Bold" text="Emp.Subgrp" class="cgcolor"/>
+								</Column>
+								<Column id="unitesInStockColumn" hAlign="Center" >
+									<Label design="Bold" text="Location" class="cgcolor"/>
+								</Column>
+								<Column id="unitsItnStockColumn" hAlign="Center" width="15%">
+									<Label design="Bold" text="Position" class="cgcolor"/>
+								</Column>
+								<Column id="unitstInStockColumn" width="15%" hAlign="Center">
+									<Label design="Bold" text="Leader" class="cgcolor"/>
+								</Column>
+								<Column id="unitsInyStockColumn" hAlign="Center">
+									<Label design="Bold" text="Start Date" class="cgcolor"/>
+								</Column>
+								<Column id="unitsInSytockColumn" hAlign="Center">
+									<Label design="Bold" text="End Date" class="cgcolor"/>
+								</Column>
+							</columns>
+							<items>
+								<ColumnListItem type="Navigation" press="onItem">
+									<cells>
+										<!--<Text text="{= parseFloat(${PERTABELModel>Pernr}) }"/>-->
+										<Text text="{= parseFloat(${PERTABELModel>Personid_ext}) }"/>
+										<Text text="{PERTABELModel>Fname} {PERTABELModel>Lname}"/>
+										<!--<Text text="{PERTABELModel>Mname}"/>-->
+										<!--<Text text="{PERTABELModel>Lname}"/>-->
+										<Text text="{path:'PERTABELModel>Dats'}"/>
+										<!--<Text text="{Employeegroup}"/>-->
+										<Text text="{PERTABELModel>ESUBGRP_TEXT}"/>
+										<Text text="{PERTABELModel>Location}"/>
+									
+										<Text text=" {PERTABELModel>SupPosText} ({PERTABELModel>OrgPosid})"/>
+										<Text id="LeaderName" text="{PERTABELModel>LeaderName}"/>
+										<Text text="{path:'PERTABELModel>Begda'}"/>
+										<Text text="{path:'PERTABELModel>Endda'}"/>
+									</cells>
+								</ColumnListItem>
+							</items>
+						</Table>
+					
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

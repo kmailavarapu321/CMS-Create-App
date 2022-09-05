@@ -1,0 +1,10 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<Popover
+		id="myPopoverVaccineCertificate" title="Information" contentWidth="22%"  titleAlignment= "Center" class="popovertitle"
+		 placement="Top">
+	
+		<Text class="sapUiTinyMargin" text= "Only a myGov COVID-19 Digital Certificate or Immunisation History Statement can be uploaded as evidence of vaccination status"></Text>
+	</Popover>
+</core:FragmentDefinition>

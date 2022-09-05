@@ -1,0 +1,31 @@
+<core:FragmentDefinition xmlns="sap.m"  xmlns:l="sap.ui.layout" xmlns:u="sap.ui.unified"
+	xmlns:core="sap.ui.core" class="sapUiSizeCompact" 	xmlns:fb="sap.ui.comp.filterbar" 	xmlns:f="sap.ui.layout.form">
+	<Dialog id="idselect" title="Sort By" titleAlignment="Center" class="sapUiSizeCompact">
+		
+	<content>
+			
+		
+				<f:SimpleForm id="idfor" title="" editable="true" layout="ResponsiveGridLayout" labelSpanL="4" labelSpanM="4" emptySpanL="5" emptySpanM="5">
+				<f:content>
+				
+		
+		 <RadioButtonGroup id="SortType"   selectedIndex ="{/SortType}">
+		 	
+            <RadioButton id="idposid" text="Position Number" />
+            <RadioButton id="idloc" text="Location"/>
+          
+        </RadioButtonGroup>
+      	
+				
+				</f:content>
+			</f:SimpleForm>
+			
+		</content>
+		<beginButton>
+			<Button text="Apply" type="Emphasized" press="onApplySort" class="sapUiSizeCompact"/>
+		</beginButton>
+		<endButton>
+			<Button id="itntext" text="Cancel" type="Reject" press="onCancelSort" class="sapUiSizeCompact"/>
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>
